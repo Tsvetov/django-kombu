@@ -60,9 +60,9 @@ class MessageManager(models.Manager):
             cursor.execute("DELETE FROM %s WHERE visible=%%s" % (
                             self.model._meta.db_table, ), (False, ))
         except:
-            transaction.rollback_unless_managed()
+            transaction.rollback()
         else:
-            transaction.commit_unless_managed()
+            transaction.commit()
 
     def connection_for_write(self):
         if connections:
